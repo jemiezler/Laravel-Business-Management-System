@@ -1,0 +1,86 @@
+services:
+  # MySQL Database
+  mysql:
+    image: mysql:8.0
+    container_name: bms_mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: business_management
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    networks:
+      - bms-network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: bms_phpmyadmin
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: mysql
+      MYSQL_ROOT_PASSWORD: rootpassword
+    depends_on:
+      - mysql
+    networks:
+      - bms-network
+  # # Go Backend API
+  # api_go:
+  #   build:
+  #     context: ./backend_go
+  #     dockerfile: Dockerfile
+  #   container_name: bms_api_go
+  #   ports:
+  #     - "8080:8080"
+  #   environment:
+  #     DB_HOST: mysql
+  #     DB_PORT: 3306
+  #     DB_USER: user
+  #     DB_PASSWORD: password
+  #     DB_NAME: business_management
+  #     JWT_SECRET: supersecretkey
+  #     INT_SERVICE_URL: http://integration_node:3000
+  #   depends_on:
+  #     - mysql
+  #   networks:
+  #     - bms-network
+
+  # # Node.js Integration Service
+  # integration_node:
+  #   build:
+  #     context: ./integration_node
+  #     dockerfile: Dockerfile
+  #   container_name: bms_integration_node
+  #   ports:
+  #     - "3000:3000"
+  #   environment:
+  #     PORT: 3000
+  #   networks:
+  #     - bms-network
+
+  # # Laravel Admin Web
+  # admin_laravel:
+  #   build:
+  #     context: ./admin_laravel
+  #     dockerfile: Dockerfile
+  #   container_name: bms_admin_laravel
+  #   ports:
+  #     - "8000:8000"
+  #   environment:
+  #     APP_KEY: base64:uSuW8mYjM/vOnfR+0+K7JzD8Z6Y8hI6S7pY8L7Z4+00=
+  #     BACKEND_API_URL: http://api_go:8080/api
+  #   depends_on:
+  #     - api_go
+  #   networks:
+  #     - bms-network
+
+networks:
+  bms-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
