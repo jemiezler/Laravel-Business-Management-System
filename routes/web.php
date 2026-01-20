@@ -9,9 +9,8 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware([\App\Http\Middleware\CheckJwtToken::class])->group(function () {
-    Route::get('/', function () {
-        return view('welcome');
-    })->name('home');
+    Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->name('home');
 
     Route::resource('users', UserController::class);
+    Route::resource('employees', App\Http\Controllers\EmployeeController::class);
 });

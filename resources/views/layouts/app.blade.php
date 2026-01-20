@@ -26,14 +26,18 @@
 
         <flux:navlist variant="outline">
             <flux:navlist.item icon="home" href="{{ route('home') }}" :current="request()->is('/')">Dashboard</flux:navlist.item>
-            <flux:navlist.item icon="users" href="{{ route('users.index') }}" :current="request()->is('users*')">Users</flux:navlist.item>
-            <flux:navlist.item icon="cog-6-tooth" href="#">Settings</flux:navlist.item>
+            <flux:navlist.item icon="users" href="{{ route('employees.index') }}" :current="request()->is('employees*')">Employees</flux:navlist.item>
+            <flux:navlist.item icon="calendar" href="#">Attendance</flux:navlist.item>
+            <flux:navlist.item icon="document-text" href="#">Leave</flux:navlist.item>
+            <flux:navlist.item icon="credit-card" href="#">Payroll</flux:navlist.item>
+            <flux:navlist.item icon="presentation-chart-line" href="#">Performance</flux:navlist.item>
+            <flux:navlist.item icon="chart-bar" href="#">Reports</flux:navlist.item>
         </flux:navlist>
 
         <flux:spacer />
 
         <flux:navlist variant="outline">
-            <flux:navlist.item icon="information-circle" href="#">Help</flux:navlist.item>
+            <flux:navlist.item icon="user-group" href="{{ route('users.index') }}" :current="request()->is('users*')">Settings</flux:navlist.item>
         </flux:navlist>
 
         <flux:dropdown position="top" align="start" class="max-lg:hidden">

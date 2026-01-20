@@ -17,7 +17,8 @@ class UserSeeder extends Seeder
         User::updateOrCreate(
             ['username' => 'admin'],
             [
-                'password_hash' => Hash::make('password'),
+                'name' => 'Admin',
+                'password' => Hash::make('password'),
                 'role' => 'admin',
             ]
         );
@@ -26,7 +27,8 @@ class UserSeeder extends Seeder
         User::updateOrCreate(
             ['username' => 'staff'],
             [
-                'password_hash' => Hash::make('password'),
+                'name' => 'Staff',
+                'password' => Hash::make('password'),
                 'role' => 'staff',
             ]
         );
