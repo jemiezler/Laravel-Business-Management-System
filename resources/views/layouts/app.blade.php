@@ -31,7 +31,7 @@
             <flux:navlist.item icon="document-text" href="{{ route('leave.index') }}" :current="request()->is('leave*')">{{ __('Leave') }}</flux:navlist.item>
             <flux:navlist.item icon="credit-card" href="{{ route('payroll.index') }}" :current="request()->is('payroll*')">{{ __('Payroll') }}</flux:navlist.item>
             <flux:navlist.item icon="presentation-chart-line" href="{{ route('performance.index') }}" :current="request()->is('performance*')">{{ __('Performance') }}</flux:navlist.item>
-            <flux:navlist.item icon="chart-bar" href="#">{{ __('Reports') }}</flux:navlist.item>
+            <flux:navlist.item icon="chart-bar" href="{{ route('reports.index') }}" :current="request()->is('reports*')">{{ __('Reports') }}</flux:navlist.item>
         </flux:navlist>
 
         <flux:spacer />
@@ -96,6 +96,21 @@
     </flux:header>
 
     <flux:main>
+        @if(config('app.db_offline'))
+        <div class="mb-6">
+            <flux:card class="bg-amber-50 dark:bg-amber-900/10 border-amber-200 dark:border-amber-800">
+                <div class="flex items-center gap-3 text-amber-800 dark:text-amber-200">
+                    <flux:icon name="exclamation-triangle" variant="solid" class="w-5 h-5" />
+                    <div>
+                        <span class="font-semibold">{{ __('Database Offline') }}:</span>
+                        {{ __('The system is currently running on fallback data.') }}
+                        {{ __('Default Admin Password:') }} <span class="font-mono font-bold bg-amber-200 dark:bg-amber-800 px-1 rounded">password</span>
+                    </div>
+                </div>
+            </flux:card>
+        </div>
+        @endif
+
         @yield('content')
     </flux:main>
 

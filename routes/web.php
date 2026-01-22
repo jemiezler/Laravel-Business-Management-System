@@ -10,6 +10,7 @@ use App\Http\Controllers\LeaveRequestController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\PerformanceReviewController;
+use App\Http\Controllers\ReportController;
 
 Route::get('/locale/{locale}', [LocaleController::class, 'switch'])->name('locale.switch');
 
@@ -28,4 +29,5 @@ Route::middleware([\App\Http\Middleware\CheckJwtToken::class])->group(function (
     Route::post('leave/{leave_request}/reject', [LeaveRequestController::class, 'reject'])->name('leave.reject');
     Route::resource('payroll', PayrollController::class);
     Route::resource('performance', PerformanceReviewController::class);
+    Route::get('reports', [ReportController::class, 'index'])->name('reports.index');
 });

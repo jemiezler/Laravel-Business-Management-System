@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\HasJsonFallback;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Payroll extends Model
 {
-    use HasFactory;
+    use HasFactory, HasJsonFallback;
 
     protected $table = 'payroll';
 
